@@ -1,13 +1,27 @@
 import express from "express";
-import morgan from "morgan";
-import logger from "./utils/logger.js";
 
 const app = express();
 
-app.use(
-  morgan("dev", {
-    stream: {
-      write: (message) => logger.info(message.trim()),
-    },
-  })
-);
+app.use(express.json());
+
+app.get('/health', (req, res) => {
+    res.status(200).json({ message: 'Welcome to the Real-Time Chat API!' });
+});
+
+export default app;
+
+
+
+
+
+
+
+
+
+// app.use(
+//   morgan("dev", {
+//     stream: {
+//       write: (message) => logger.info(message.trim()),
+//     },
+//   })
+// );
