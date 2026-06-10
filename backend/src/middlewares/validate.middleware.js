@@ -1,6 +1,5 @@
 //controller tak bad data nahi jana chyie
 
-import { success } from 'zod';
 import {HTTP_STATUS} from '../constants/httpStatus.js'; //use karenge status code ke liye
 import {APP_MESSAGES} from '../constants/messages.js';  //use karenge messages ke liye, taki har jagah same message mile, aur agar change karna ho to ek jagah se kar sake
 
@@ -16,7 +15,7 @@ export const validateRequest = (schema) => {
         if (!result.success) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({
                 success: false,
-                message: APP_MESSAGES.BAD_REQUEST,
+                message: APP_MESSAGES.VALIDATION_ERROR,
                 errors: result.error.flatten(), //zod ka method hai, jo error ko flatten karta hai, taki easily samajh me aaye ki kya error hai, aur kis field me hai
             });
         }

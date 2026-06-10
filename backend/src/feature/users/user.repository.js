@@ -18,9 +18,31 @@ export const createUser = (userData) => {
 };
 
 // findUserById - JWT token verify ke baad current user fetch karne ke liye.
-export const findUserById = (userId) => {
-    return User.findById(userId);
+export const findUserById = (userId, includeRefreshToken = false) => {
+    const query = User.findById(userId);
+
+    if (includeRefreshToken) {
+        query.select("+refreshToken");
+    }
+
+    return query;
 }
+
+export const updateUserRefreshToken = (userId, refreshToken) => {
+    return User.findByIdAndUpdate(
+        userId,
+        { refreshToken },
+        { new: true }
+    );
+};
+
+export const clearUserRefreshToken = (userId) => {
+    return User.findByIdAndUpdate(
+        userId,
+        { refreshToken: "" },
+        { new: true }
+    );
+};
 
 // findUserByEmail
 // Register me duplicate email check ke liye. Login me user find karne ke liye.

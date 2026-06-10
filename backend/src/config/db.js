@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import env from "./env.js";
 import logger from "../utils/logger.js";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(env.MONGODB_URI);
     logger.info("Connected to MongoDB");
   } catch (error) {
-    logger.error("Error connecting to MongoDB:", error);
-    process.exit(1);
+    logger.error({ err: error }, "Error connecting to MongoDB");
+    throw error;
   }
 };
 
