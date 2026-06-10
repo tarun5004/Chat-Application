@@ -6,7 +6,11 @@ dotenv.config();
 const envSchema = z.object({
     PORT: z.string().default("5000"), // Default to "5000" if not provided
     MONGODB_URI: z.string().min(1).nonempty("MONGODB_URI is required"), // Ensure it's a non-empty string and provide a custom error message
-    NODE_ENV: z.string().default("development")
+    NODE_ENV: z.string().default("development"),
+    ACCESS_TOKEN_SECRET: z.string().min(10, "ACCESS_TOKEN_SECRET is required"),
+    ACCESS_TOKEN_EXPIRES_IN: z.string().default("15m"),
+    REFRESH_TOKEN_SECRET: z.string().min(10, "REFRESH_TOKEN_SECRET is required"),
+    REFRESH_TOKEN_EXPIRES_IN: z.string().default("7d"),
     });
 
     // Parse and validate environment variables meaningfully, providing defaults and custom error messages
