@@ -1,0 +1,73 @@
+backend/src/features/
+  auth/
+    auth.routes.js
+    auth.validation.js
+    auth.controller.js
+    auth.service.js
+    auth.repository.js
+
+  users/
+    user.model.js
+    user.repository.js
+
+
+
+    backend/src/utils/
+  ApiError.js
+  ApiResponse.js
+  asyncHandler.js
+  jwt.js
+
+backend/src/middlewares/
+  auth.middleware.js
+
+
+  POST /api/auth/register
+POST /api/auth/login
+GET /api/auth/me
+
+route -> zod validation -> controller -> service -> repository -> model -> MongoDB
+
+
+
+
+
+
+
+
+
+
+
+
+Frontend Auth Second
+Use Redux Toolkit:
+
+frontend/src/
+  app/
+    store.js
+
+  features/
+    auth/
+      authSlice.js
+      authApi.js
+      Login.jsx
+      Register.jsx
+
+  routes/
+    ProtectedRoute.jsx
+Frontend auth flow:
+
+Register/Login form
+-> dispatch Redux async thunk
+-> call backend API
+-> save token/user in Redux
+-> optionally save token in localStorage
+-> redirect to chat page
+Meri recommendation:
+
+Backend auth complete karo.
+Postman/Thunder Client se test karo.
+Phir frontend auth with Redux Toolkit.
+Uske baad conversations/messages backend.
+Then Socket.IO.
+Then frontend chat UI.
