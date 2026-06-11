@@ -1,15 +1,23 @@
-import axios from 'axios'
-import { env } from "./env"
+import axios from "axios";
+import { env } from "./env.js";
+import { authStorage } from "../features/auth/auth.storage.js";
 
-const httpClient = axios.create({   // Create an Axios instance with the base URL and default headers
-    baseURL: env.apiBaseUrl,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+const httpClient = axios.create({
+  baseURL: env.apiBaseUrl,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+httpClient.interceptors.request.use((config) => {
+  const accessToken = authStorage.getAccessToken();
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return config;
 });
 
 export default httpClient;
-
-// headers mean that the client will send JSON data in the request body by default, and the server should expect JSON data when processing requests from this client.
-// Important: Vite frontend env variable must start with VITE_.
 

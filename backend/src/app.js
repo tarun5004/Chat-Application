@@ -11,9 +11,20 @@ import logger from "./utils/logger.js";
 
 const app = express();
 
+const isLocalViteOrigin = (origin) => {
+  return env.NODE_ENV === "development" && /^http:\/\/(localhost|127\.0\.0\.1):517\d$/.test(origin);
+};
+
 app.use(
   cors({
-    origin: env.CLIENT_URL,
+    origin(origin, callback) {
+      if (!origin || origin === env.CLIENT_URL || isLocalViteOrigin(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
@@ -46,6 +57,5 @@ app.use(errorMiddleware); //error handling middleware ko use karenge, taki app k
 
 
 export default app;
-
 
 
